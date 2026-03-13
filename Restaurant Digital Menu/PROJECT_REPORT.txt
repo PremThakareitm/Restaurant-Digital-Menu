@@ -1,0 +1,584 @@
+================================================================================
+                    RESTAURANT DIGITAL MENU APPLICATION
+                        BITES & BRILLIANCE — PROJECT REPORT
+================================================================================
+Student:     Prem Thakare
+Project:     Restaurant Digital Menu — Mobile Application (Flutter)
+Platform:    Android / iOS / Web
+GitHub:      https://github.com/PremThakareitm/Restaurant-Digital-Menu
+Date:        March 2026
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+ 1. PROBLEM UNDERSTANDING
+────────────────────────────────────────────────────────────────────────────────
+
+CASE STUDY:
+   Restaurants traditionally hand out physical menus to customers, which are
+   costly to reprint whenever items change, prone to damage, and unable to
+   provide rich information like ingredient lists, ratings, or photos. Customers
+   also have no convenient way to browse, favourite items, or place orders from
+   their seat.
+
+OBJECTIVE:
+   Design and build a fully functional digital menu application for a restaurant
+   ("Bites & Brilliance") that:
+
+   • Replaces the physical menu with a beautiful, interactive mobile app.
+   • Allows customers to browse dishes by category, filter by veg / spicy /
+     bestseller, and search for specific items.
+   • Provides rich dish detail pages with photos, ingredients, ratings, and
+     pricing.
+   • Lets customers add items to a cart, specify a table number or takeaway
+     option, add special instructions, and place a confirmed order.
+   • Allows customers to save favourite dishes for quick future access.
+   • Presents restaurant information (contact, hours, gallery, address).
+
+   The solution is built with Flutter for cross-platform reach (Android, iOS,
+   and Web from a single codebase), backed by a Node.js/Express REST API that
+   serves dish and restaurant data.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ 2. APPLICATION DESIGN
+────────────────────────────────────────────────────────────────────────────────
+
+2.1 NAVIGATION FLOW
+───────────────────
+   App Launch
+       │
+       ▼
+   SplashScreen  (2.5 sec animated splash — logo, tagline, dots loader)
+       │
+       ▼
+   HomeScreen  ─────────────────────────────────────────────────────────
+       │                                                                 │
+       ├── Tab 1: MenuScreen ──► DishDetailScreen                       │
+       │                                                                 │
+       ├── Tab 2: FavoritesScreen ──► DishDetailScreen                  │
+       │                                                                 │
+       ├── Tab 3: OrderPreviewScreen ──► OrderPlacedDialog (modal)      │
+       │                                                                 │
+       └── Tab 4: RestaurantInfoScreen                                  │
+                                                                        │
+   Desktop layout uses NavigationRail (sidebar) instead of BottomNav ──┘
+
+2.2 UI LAYOUT — SCREEN BY SCREEN
+──────────────────────────────────
+
+   SPLASH SCREEN
+   ─────────────
+   • Full-screen gradient background (coral → terracotta → mahogany).
+   • Decorative translucent circles for depth.
+   • Floating food emoji accents (🍛🫕🥘🍜✨) at various positions.
+   • Animated restaurant-menu logo icon in a white circle with pulse effect.
+   • Large serif "Bites & Brilliance" title with drop shadow.
+   • Bordered tagline pill: "✦ Where Every Bite Shines ✦".
+   • Three animated bouncing dots as a loading indicator.
+   • Cuisine subtitle at bottom: "North Indian · Pan-Asian · New Delhi".
+
+   HOME SCREEN (Navigation Shell)
+   ────────────────────────────────
+   Mobile / Tablet  → NavigationBar at bottom with 4 tabs:
+     [🍽️ Menu] [♥ Favourites] [🛒 Order (badge)] [🏪 About]
+   Desktop (≥960px) → NavigationRail on left with logo icon as leading widget.
+   Both use terracotta (#C84B31) as selected indicator / icon color.
+
+   MENU SCREEN (Tab 1)
+   ────────────────────
+   AppBar:
+     • Gradient logo icon (terracotta → sienna).
+     • "Bites & Brilliance" title (Playfair Display).
+     • Cuisine subtitle "✦ North Indian · Pan-Asian".
+     • Search toggle button (animated open/close).
+     • Gradient divider line at AppBar bottom.
+
+   Body (top to bottom):
+     • Search bar (slides in / out with AnimatedCrossFade).
+     • Greeting header: time-aware greeting + "What's on your mind?" +
+       "New Delhi" location badge.
+     • Trending Now strip: horizontal scrollable list of 132×170 px photo
+       cards with name, price, rating, hot badge, veg indicator.
+     • Category TabBar: emoji pill tabs — ✦ All / 🥗 Starters / 🍛 Main /
+       🍮 Desserts / 🥤 Drinks. Selected tab fills with terracotta + shadow.
+     • Filter row: 🌿 Veg Only / 🌶️ Spicy / ⭐ Bestseller chips with active
+       tinted borders and shadows.
+     • Results bar: "N dishes · Filtered" label.
+     • Responsive GridView of DishCards (2–6 columns depending on width).
+
+   DISH CARD (Widget — Grid Layout)
+   ──────────────────────────────────
+   • Full-bleed image (top ~58% of card).
+   • Veg/Non-veg square dot indicator (white background, colored border).
+   • Gold gradient "Best" badge (top-right) when bestseller.
+   • Animated heart favourite button (bottom-right of image).
+   • "🌶️ Spicy" chip overlay on image when applicable.
+   • Dish name, truncated description, rating badge (gold star + number).
+   • Price (bold terracotta) + Add / stepper button (gradient pill).
+
+   DISH DETAIL SCREEN
+   ────────────────────
+   • SliverAppBar (expandedHeight: 300) with PageView image gallery.
+   • Dark frosted circle back/favourite buttons overlaid on image.
+   • Smooth page dots indicator (WormEffect) for multi-image dishes.
+   • Gradient overlay on hero image.
+   Content area:
+   • Dish name + Veg/Non-Veg badge (colored text + border).
+   • Category / Bestseller / Spicy info chips.
+   • 5-star rating row (filled / half / empty stars) + review count.
+   • Price card with label "Price" + large serif price + quantity selector.
+   • Description section, Ingredients section (staggered animated chips).
+   • Photo gallery thumbnails for multi-image dishes.
+   Sticky bottom bar:
+   • "Add to Order · ₹299" → "Added (2) · ₹598" button (gradient, full-width).
+
+   FAVORITES SCREEN (Tab 2)
+   ─────────────────────────
+   • AppBar shows "♥ N saved" badge when list is non-empty.
+   • Mobile: vertical ListView of DishCards in list layout (thumbnail left).
+   • Tablet/Desktop: GridView matching Menu grid.
+   • Empty state: pulsing 🤍 emoji with radial gradient background + text +
+     "Explore the menu" button.
+
+   ORDER PREVIEW SCREEN (Tab 3)
+   ─────────────────────────────
+   • AppBar title "My Order" + item count badge + "Clear" action.
+   • Table Selector card: icon + "Select Table" title + Takeaway (🛵) +
+     15 numbered chips (animated gradient fill on select).
+   • List of OrderItemTile per cart item:
+     – 80×80 thumbnail with veg dot overlay.
+     – Item name, price, qty stepper (minus/plus with gradient + button).
+     – Item total (terracotta) + delete button.
+   • Special Instructions card: text field for dietary notes.
+   • Order History card: last 5 placed orders with token, count, time, total.
+   • Sticky bottom summary panel (rounded top):
+     – Subtotal · GST (5%) · divider · Total Payable + Place Order button.
+
+   ORDER PLACED DIALOG
+   ────────────────────
+   • Gradient header (coral → mahogany) with elastic scale-in checkmark.
+   • Large token display (e.g., "ORD-481923") in a tinted bordered box.
+   • Copy-to-clipboard button.
+   • Summary pills: items | total | 25–35 min wait.
+   • Table / note recap rows (if set).
+   • "Enjoy your meal! 🍛" CTA button.
+
+   RESTAURANT INFO SCREEN (Tab 4)
+   ────────────────────────────────
+   • SliverAppBar (expandedHeight: 260) with hero.jpg + gradient overlay.
+   • Title in overlay: restaurant name + cuisine subtitle.
+   Content:
+   • 3 white stat cards in a row: ⭐ 4.8 Rating / ⏱️ 25–35 min / 🛵 Free.
+   • About Us paragraph (white card).
+   • Opening Hours (white card with dividers between rows).
+   • Contact Us (white card: Phone / Email / Website with chevrons).
+   • Location card: map image placeholder + address with icon.
+   • Gallery: 2–4 column responsive grid of 6 food photos.
+   • Footer: copyright text.
+
+2.3 RESPONSIVE DESIGN
+──────────────────────
+   Breakpoints (ResponsiveHelper):
+     Mobile:       < 480 px   → 2-column grid, horizontal padding 16 px
+     Tablet:       480–960 px → 2-column grid, horizontal padding 20 px
+     Desktop:      960–1440px → 3-column grid, NavigationRail, pad 24 px
+     Large Desktop: 1440–1920px → 4-column grid
+     Ultra Wide:   ≥ 1920 px  → 5-column grid
+
+2.4 VISUAL DESIGN SYSTEM
+──────────────────────────
+   Color Palette:
+     Primary    #C84B31  — warm terracotta / saffron (main actions)
+     PrimaryDark #A33626 — deep burnt sienna (gradients)
+     Gold       #C9961A  — antique gold (ratings, bestseller)
+     Background #FDF8F2  — warm cream / ivory
+     Surface    #FFFFFF  — cards, app bar
+     TextPrimary #1C0A00 — espresso near-black
+     TextSecondary #7A6A5A — warm mocha
+     VegGreen   #3D7A48  — veg indicator
+     NonVegRed  #C0392B  — non-veg, delete actions
+
+   Typography:
+     Headings  → Playfair Display (serif) — premium feel
+     Body/UI   → Outfit (variable sans-serif) — modern, clean
+
+   Shadow System (AppTheme):
+     shadowSm  — subtle card lift
+     shadowMd  — default card elevation
+     shadowLg  — modal / sheet elevation
+     primaryShadow(alpha) — colored glow under primary buttons
+
+
+────────────────────────────────────────────────────────────────────────────────
+ 3. IMPLEMENTATION
+────────────────────────────────────────────────────────────────────────────────
+
+3.1 TECH STACK
+───────────────
+   Frontend  : Flutter 3.x + Dart (Material 3)
+   Backend   : Node.js + Express.js
+   State Mgmt: Provider (ChangeNotifier)
+   HTTP      : (backend ready; frontend uses static data from menu_data.dart)
+   Images    : cached_network_image
+   Fonts     : google_fonts (Playfair Display, Outfit)
+   Pages UX  : smooth_page_indicator
+
+3.2 PROJECT STRUCTURE
+──────────────────────
+   Restaurant Digital Menu/
+   ├── backend/
+   │   ├── server.js            Express app (helmet, cors, morgan)
+   │   ├── .env                 Environment variables
+   │   ├── data/
+   │   │   ├── menu.json        23 dishes (id, name, price, category, etc.)
+   │   │   └── restaurant.json  Restaurant metadata
+   │   └── routes/
+   │       ├── menu.js          GET /api/dishes, GET /api/dishes/:id
+   │       ├── categories.js    GET /api/categories
+   │       ├── orders.js        POST /api/orders (validate, calc tax, token)
+   │       └── restaurant.js    GET /api/restaurant
+   │
+   └── frontend/
+       └── lib/
+           ├── main.dart        Entry point, Provider setup, orientation lock
+           ├── data/
+           │   └── menu_data.dart  23 Dart const Dish objects (static source)
+           ├── models/
+           │   ├── dish.dart       Dish model
+           │   └── order_item.dart OrderItem + PlacedOrder models
+           ├── state/
+           │   └── app_state.dart  ChangeNotifier — all app state
+           ├── theme/
+           │   └── app_theme.dart  Colors, shadows, gradients, ThemeData
+           ├── utils/
+           │   ├── constants.dart         Restaurant constants
+           │   ├── currency_formatter.dart INR formatter
+           │   └── responsive_helper.dart  Breakpoints, grid columns
+           ├── screens/
+           │   ├── splash_screen.dart
+           │   ├── home_screen.dart
+           │   ├── menu_screen.dart
+           │   ├── dish_detail_screen.dart
+           │   ├── favorites_screen.dart
+           │   ├── order_preview_screen.dart
+           │   └── restaurant_info_screen.dart
+           └── widgets/
+               ├── dish_card.dart          Grid + List card layouts
+               ├── category_tab_bar.dart   Emoji pill tabs
+               ├── order_item_tile.dart    Cart item row
+               └── search_bar_widget.dart  Reactive search input
+
+3.3 KEY FEATURES IMPLEMENTED
+──────────────────────────────
+
+   a) MENU BROWSING
+      • 23 dishes across 4 categories (Starters, Main Course, Desserts, Drinks).
+      • Responsive grid (2–6 columns) with staggered entrance animation.
+      • Category tab bar with emoji icons for intuitive navigation.
+      • Live text search across dish names, descriptions, ingredients.
+      • THREE independent filter chips: Veg Only | Spicy | Bestseller.
+      • Filters can be combined (e.g., Veg + Bestseller).
+      • "Trending Now" horizontal strip showing all bestseller dishes.
+
+   b) DISH DETAIL
+      • Multi-photo SwipeView (PageView with smooth page indicator).
+      • 5-star visual rating + review count.
+      • Category / Bestseller / Spicy info chips.
+      • Ingredient list with staggered fade-in animation.
+      • Inline quantity selector (−/+) in detail page.
+      • Sticky "Add to Order" bar shows cumulative item total.
+      • Favourite toggle synced with Favourites tab.
+
+   c) FAVOURITES
+      • Persistent in-session favourite set (Set<String> of dish IDs).
+      • Heart button on every DishCard and DishDetailScreen.
+      • Animated empty state with pulsing 🤍 emoji.
+
+   d) ORDER MANAGEMENT
+      • Add / remove / increment / decrement items from any screen.
+      • Live badge on "Order" tab showing cart item count.
+      • Table selection: Takeaway or Table 1–15.
+      • Special Instructions text field (max 200 chars).
+      • Order Summary: Subtotal + 5% GST + Total.
+      • Place Order → generates 6-digit token (ORD-XXXXXX), clears cart,
+        adds to in-session order history.
+      • Order Placed dialog with animated checkmark and copy token button.
+
+   e) RESTAURANT INFO
+      • Static hero image with parallax-style SliverAppBar.
+      • Quick stats: Rating, Delivery time, Free delivery.
+      • Opening hours (Mon–Sun schedule).
+      • Contact details (phone, email, website).
+      • Address with map image placeholder.
+      • Photo gallery with 6 Unsplash food images (responsive columns).
+
+   f) BACKEND API (Node.js/Express — Ready for Integration)
+      • GET  /api/dishes          — list with category, search, veg, spicy,
+                                    bestseller, sort, page, limit filters
+      • GET  /api/dishes/:id      — single dish by ID
+      • GET  /api/categories      — categories with dish counts
+      • GET  /api/restaurant      — restaurant metadata
+      • POST /api/orders          — validate items → calc tax → return token
+      • GET  /api/health          — health check
+
+3.4 STATE MANAGEMENT (AppState)
+─────────────────────────────────
+   AppState (ChangeNotifier) holds:
+   • dishes          — all 23 Dish objects from MenuData
+   • selectedCategory — active category filter ('all', 'starter', etc.)
+   • searchQuery     — live search text
+   • searchVisible   — whether search bar is showing
+   • filterVeg / filterSpicy / filterBestseller — boolean toggles
+   • favorites       — Set<String> of dish IDs
+   • _order          — Map<String, OrderItem> (dish ID → OrderItem)
+   • tableNumber     — nullable int (0=Takeaway, 1–15=table)
+   • orderNote       — special instructions string
+   • _orderHistory   — List<PlacedOrder> (session-only)
+
+   Computed getters:
+   • filteredDishes  — applies all active filters simultaneously
+   • trendingDishes  — dishes where isBestseller == true
+   • totalOrderItems — sum of all quantities in cart
+   • totalOrderPrice — sum of all (price × qty) in cart
+   • favoriteDishes  — dishes filtered by favorite set
+   • orderItems      — list of OrderItem values from cart map
+
+3.5 ANIMATIONS IMPLEMENTED
+────────────────────────────
+   • Splash: Logo elastic scale-in, title slide-up, 3-dot bounce loader,
+             logo pulse (repeat), fade transition to HomeScreen.
+   • DishCard: Staggered fade + slide-up (50ms + index×60ms delay per card).
+   • Favourite button: ScaleTransition on icon swap.
+   • Add button: Transforms from "Add" → inline stepper when qty > 0.
+   • Category tab: AnimatedContainer fill on select.
+   • Filter chips: AnimatedContainer with active color + shadow.
+   • Order empty state: Floating cart emoji (continuous up/down translate).
+   • Favourites empty state: Pulsing 🤍 scale (1.0 → 1.10, repeat).
+   • Order Placed dialog: Elastic scale-in for checkmark, fade for dialog.
+   • Ingredient chips: Staggered CurvedAnimation fade + translate.
+   • Table chips: AnimatedContainer gradient fill on select.
+   • Search bar: AnimatedCrossFade slide in/out.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ 4. SCREENSHOTS / DEMONSTRATION
+────────────────────────────────────────────────────────────────────────────────
+
+   Screen 1 — Splash Screen
+   ─────────────────────────
+   • Gradient background (coral → terracotta → mahogany).
+   • Animated circular logo with pulse glow.
+   • "Bites & Brilliance" title with drop shadow.
+   • Bordered tagline pill: "✦ Where Every Bite Shines ✦".
+   • Floating food emojis (🍛🫕🥘🍜) at corners.
+   • 3 animated bouncing dots.
+
+   Screen 2 — Menu Screen (Home Tab)
+   ──────────────────────────────────
+   • AppBar: gradient logo icon + restaurant name + cuisine subtitle + search.
+   • Greeting: "Good Evening 🌆 / What's on your mind?" + "New Delhi" badge.
+   • Trending Now: horizontal scroll of 10 bestseller cards with rating.
+   • Category tabs: emoji pills (✦ All selected in terracotta).
+   • Filter chips: 🌿 Veg Only | 🌶️ Spicy | ⭐ Bestseller (active tinted).
+   • Grid: 2-col cards with images, names, ratings, prices, Add buttons.
+
+   Screen 3 — Dish Detail Screen
+   ──────────────────────────────
+   • Full-bleed hero image with frosted back/heart buttons.
+   • Dish name + Veg badge (green border + text).
+   • Info chips: "🍛 Main Course" + "⭐ Bestseller".
+   • 5 gold stars + "4.5 (98 reviews)".
+   • Price card: "Price / ₹399" + Add button.
+   • Description paragraph.
+   • Ingredients: animated pill chips.
+   • Sticky bar: "Add to Order · ₹399" full-width button.
+
+   Screen 4 — Favourites Screen
+   ──────────────────────────────
+   • AppBar: "My Favourites" + "♥ 3 saved" badge.
+   • List layout: thumbnail + name + description + rating + price + stepper.
+
+   Screen 5 — Order Preview Screen
+   ─────────────────────────────────
+   • Table selector card: 🛵 Takeaway (selected, gradient) + Tables 1–15.
+   • 2 order items: thumbnails, names, qty steppers, item totals.
+   • "Special Instructions" text field.
+   • Sticky summary: Subtotal ₹648 | GST ₹32.40 | Total ₹680.40 + Place button.
+
+   Screen 6 — Order Placed Dialog
+   ────────────────────────────────
+   • Gradient header + animated checkmark.
+   • "Order Confirmed! 🎉" title.
+   • Token: "ORD-481923" in bordered box + copy icon.
+   • Pills: "2 items | ₹680.40 | 25–35 min".
+   • "🪑 Table 5".
+   • "Enjoy your meal! 🍛" button.
+
+   Screen 7 — Restaurant Info Screen
+   ────────────────────────────────────
+   • Hero image in collapsible SliverAppBar.
+   • 3 stat cards: ⭐ 4.8 Rating | ⏱️ 25–35 min | 🛵 Free.
+   • Opening Hours card with daily schedule.
+   • Contact Us card: Phone / Email / Website with chevrons.
+   • Location card: map image + address.
+   • 2×3 photo gallery grid.
+
+
+────────────────────────────────────────────────────────────────────────────────
+ 5. DOCUMENTATION — APPLICATION WORKFLOW & FEATURES
+────────────────────────────────────────────────────────────────────────────────
+
+5.1 APPLICATION WORKFLOW
+──────────────────────────
+
+   STEP 1 — Launch
+   A customer opens the app. They see the animated splash screen for ~2.5 seconds
+   while the app initializes, then smoothly transitions to the home screen.
+
+   STEP 2 — Browse the Menu
+   The Menu tab is the default. The customer can:
+   (a) Scroll down to see all dishes in a visual grid.
+   (b) Tap a Category Tab (e.g., 🍛 Main Course) to filter by category.
+   (c) Enable filters: 🌿 Veg Only, 🌶️ Spicy, or ⭐ Bestseller.
+   (d) Tap the search icon to type a dish name or ingredient.
+   (e) Scroll the "Trending Now" strip to discover popular items.
+
+   STEP 3 — View Dish Detail
+   Tapping any dish card opens the DishDetailScreen:
+   • Swipe through multiple photos.
+   • Read the description and ingredient list.
+   • Check the star rating and review count.
+   • Use the +/− stepper or the sticky "Add to Order" button to add to cart.
+   • Tap the heart icon to save to Favourites.
+   • Tap the back arrow to return to the menu.
+
+   STEP 4 — Manage Favourites
+   The Favourites tab shows all dishes the user has liked. Tapping any item
+   opens its detail. The empty state guides new users to explore the menu.
+
+   STEP 5 — Build the Order
+   The Order tab (with a live count badge) shows:
+   • All cart items with quantities and per-item totals.
+   • Table selection (Takeaway or any of 15 tables).
+   • An optional special instructions note.
+   The running subtotal, GST, and total are shown in real time.
+
+   STEP 6 — Place the Order
+   Tapping "Place Order" generates a confirmation dialog showing:
+   • A unique 6-character alphanumeric order token.
+   • Order summary (items, total, wait time).
+   • Table or Takeaway detail.
+   The token can be copied and presented at the counter. The cart is cleared
+   automatically, and the placed order is added to Order History.
+
+   STEP 7 — Restaurant Information
+   The About tab details the restaurant: address, hours, phone, email,
+   website, and a photo gallery for ambiance reference.
+
+5.2 FEATURES IMPLEMENTED
+──────────────────────────
+
+   ✓ Animated splash screen with brand identity
+   ✓ Responsive layout (mobile / tablet / desktop)
+   ✓ Time-aware greeting ("Good Morning", "Good Afternoon", etc.)
+   ✓ Category-based menu filtering (5 categories)
+   ✓ Multi-filter system (Veg / Spicy / Bestseller — combinable)
+   ✓ Real-time search across names, descriptions, and ingredients
+   ✓ Trending Now horizontal strip for bestsellers
+   ✓ Rich dish cards (image, veg badge, rating, price, add button)
+   ✓ Multi-image dish detail with PageView gallery
+   ✓ 5-star visual rating display
+   ✓ Animated ingredient list
+   ✓ Persistent favourites (session)
+   ✓ Shopping cart with add / remove / increment / decrement
+   ✓ Live cart badge on navigation bar
+   ✓ Table selector (Takeaway + 15 tables)
+   ✓ Special instructions free-text field
+   ✓ Real-time order summary with 5% GST calculation
+   ✓ Order placement with unique token generation
+   ✓ Copy-to-clipboard token for order collection
+   ✓ In-session order history (last 5 orders)
+   ✓ Restaurant info page (hours, contact, address, gallery)
+   ✓ Staggered card entrance animations
+   ✓ Animated empty states for cart and favourites
+   ✓ Node.js/Express backend API (ready for integration)
+
+5.3 BACKEND API DOCUMENTATION
+───────────────────────────────
+
+   Base URL: http://localhost:5000/api
+
+   Endpoint               Method  Description
+   ─────────────────────  ──────  ──────────────────────────────────────────
+   /health                GET     Server health check
+   /dishes                GET     List dishes (filters: category, search,
+                                  veg, spicy, bestseller, sort, page, limit)
+   /dishes/:id            GET     Get single dish by ID
+   /categories            GET     List categories with dish counts
+   /restaurant            GET     Restaurant metadata (name, hours, contact)
+   /orders                POST    Submit order, returns token + total + tax
+
+   POST /api/orders — Request Body:
+   {
+     "items": [
+       { "dishId": "chicken-tikka", "quantity": 2 },
+       { "dishId": "butter-chicken", "quantity": 1 }
+     ]
+   }
+
+   POST /api/orders — Response:
+   {
+     "success": true,
+     "token": "ORD-1234567890",
+     "items": [...],
+     "subtotal": 997,
+     "tax": 79.76,
+     "total": 1076.76,
+     "estimatedWait": "30 minutes"
+   }
+
+5.4 KNOWN LIMITATIONS
+──────────────────────
+   • Dish data is currently static (Dart constants) — backend integration
+     would enable real-time menu updates without app rebuild.
+   • Tax rate discrepancy: frontend uses 5% GST; backend uses 8%. Should
+     be unified via a shared configuration or API response.
+   • Order history is session-only (in-memory); a database would persist orders.
+   • No user authentication or table booking system implemented.
+   • Images are sourced from Unsplash CDN and require internet connectivity.
+
+5.5 PACKAGES USED
+──────────────────
+   provider:                   ^6.1.2   — State management
+   google_fonts:               ^6.2.1   — Playfair Display + Outfit
+   cached_network_image:       ^3.3.1   — Efficient network image caching
+   smooth_page_indicator:      ^1.1.0   — Image gallery page dots
+   express (npm):              ^4.18.2  — Backend HTTP framework
+   helmet (npm):               ^7.1.0   — Security headers
+   cors (npm):                 ^2.8.5   — Cross-Origin Resource Sharing
+   morgan (npm):               ^1.10.0  — HTTP request logger
+
+
+────────────────────────────────────────────────────────────────────────────────
+ 6. CONCLUSION
+────────────────────────────────────────────────────────────────────────────────
+
+   The Bites & Brilliance Digital Menu Application successfully replaces a
+   traditional paper menu with a modern, feature-rich Flutter application that
+   runs across Android, iOS, and the Web from a single codebase.
+
+   The application delivers a premium, user-friendly experience through:
+   • Warm, branded visual design (terracotta, cream, gold palette).
+   • Intuitive navigation and discoverable filtering.
+   • Smooth animations that enhance perceived quality.
+   • A complete order flow from browsing to token generation.
+   • A scalable Node.js backend ready for live data integration.
+
+   This project demonstrates proficiency in Flutter widget composition,
+   state management with Provider, responsive design patterns, REST API
+   design with Express, and modern mobile UI/UX principles.
+
+================================================================================
+                         END OF REPORT
+================================================================================

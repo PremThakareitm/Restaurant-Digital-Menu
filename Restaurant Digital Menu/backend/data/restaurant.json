@@ -1,0 +1,39 @@
+{
+  "name": "Spice Garden",
+  "tagline": "A Fine Dining Experience",
+  "cuisine": "North Indian & Pan-Asian",
+  "description": "Welcome to Spice Garden — where every dish tells a story. Nestled in the heart of the Flavour District, we have been serving authentic North Indian and Pan-Asian cuisine since 2010. Our chefs bring decades of culinary tradition to your table, using only the freshest ingredients sourced from local markets and trusted spice merchants.",
+  "rating": 4.8,
+  "reviewCount": 1240,
+  "priceRange": "$$",
+  "phone": "+91 98765 43210",
+  "email": "hello@spicegarden.in",
+  "website": "www.spicegarden.in",
+  "address": {
+    "street": "12, Connaught Place",
+    "area": "Central Delhi",
+    "city": "New Delhi",
+    "state": "Delhi",
+    "zip": "110001",
+    "country": "India"
+  },
+  "openingHours": [
+    { "day": "Monday – Thursday", "hours": "12:00 PM – 10:00 PM" },
+    { "day": "Friday – Saturday", "hours": "11:00 AM – 11:30 PM" },
+    { "day": "Sunday", "hours": "11:00 AM – 10:00 PM" }
+  ],
+  "features": ["Dine-In", "Takeaway", "Home Delivery", "Private Dining", "Outdoor Seating"],
+  "socialMedia": {
+    "instagram": "@spicegarden",
+    "facebook": "SpiceGardenNYC",
+    "twitter": "@SpiceGardenNYC"
+  },
+  "galleryImages": [
+    "https://picsum.photos/seed/gallery_0/400/300",
+    "https://picsum.photos/seed/gallery_1/400/300",
+    "https://picsum.photos/seed/gallery_2/400/300",
+    "https://picsum.photos/seed/gallery_3/400/300",
+    "https://picsum.photos/seed/gallery_4/400/300",
+    "https://picsum.photos/seed/gallery_5/400/300"
+  ]
+}

@@ -1,0 +1,660 @@
+[
+  {
+    "id": "s1",
+    "name": "Chicken Tikka",
+    "description": "Tender chunks of boneless chicken marinated overnight in yogurt, lemon juice and aromatic spices, then grilled to perfection in a traditional clay tandoor oven. Served with fresh mint chutney and sliced onions.",
+    "price": 8.99,
+    "category": "starter",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1565557623262-b51477827a1b?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Chicken",
+      "Yogurt",
+      "Lemon Juice",
+      "Red Chili Powder",
+      "Turmeric",
+      "Garam Masala",
+      "Ginger",
+      "Garlic",
+      "Cumin Seeds",
+      "Coriander"
+    ],
+    "rating": 4.8,
+    "reviewCount": 234,
+    "isVeg": false,
+    "isSpicy": true,
+    "isBestseller": true
+  },
+  {
+    "id": "s2",
+    "name": "Paneer Tikka",
+    "description": "Cubes of fresh cottage cheese marinated in a vibrant blend of spices and hung yogurt, then chargrilled until perfectly caramelised. A beloved vegetarian starter bursting with flavour.",
+    "price": 7.99,
+    "category": "starter",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1567188040758-a05ab0b57b12?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Paneer (Cottage Cheese)",
+      "Bell Peppers",
+      "Onion",
+      "Hung Yogurt",
+      "Kashmiri Chili",
+      "Chaat Masala",
+      "Ajwain",
+      "Ginger-Garlic Paste",
+      "Mustard Oil"
+    ],
+    "rating": 4.6,
+    "reviewCount": 189,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": true
+  },
+  {
+    "id": "s3",
+    "name": "Onion Bhaji",
+    "description": "Crispy golden fritters made with thinly sliced onions, fragrant herbs and spices, fried to a crunchy perfection. A classic Indian street food snack.",
+    "price": 5.99,
+    "category": "starter",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1604152135912-04a022e23696?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1593080358201-08e5c37c8bfa?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Onion",
+      "Chickpea Flour (Besan)",
+      "Green Chili",
+      "Coriander Leaves",
+      "Cumin Seeds",
+      "Ajwain Seeds",
+      "Turmeric",
+      "Salt"
+    ],
+    "rating": 4.5,
+    "reviewCount": 156,
+    "isVeg": true,
+    "isSpicy": true,
+    "isBestseller": false
+  },
+  {
+    "id": "s4",
+    "name": "Vegetable Samosa (2 pcs)",
+    "description": "Golden triangular pastries stuffed with a spiced filling of potatoes, green peas and aromatic spices. Served with tamarind chutney.",
+    "price": 5.49,
+    "category": "starter",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1630383249896-424e482df921?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1604152135912-04a022e23696?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Refined Flour (Maida)",
+      "Potato",
+      "Green Peas",
+      "Green Chili",
+      "Ginger",
+      "Dry Mango Powder (Amchur)",
+      "Cumin",
+      "Coriander",
+      "Ghee"
+    ],
+    "rating": 4.4,
+    "reviewCount": 201,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "s5",
+    "name": "Garlic Mushrooms",
+    "description": "Plump button mushrooms tossed in herb-infused garlic butter with fresh cream, seasoned with cracked black pepper and served on toasted bread.",
+    "price": 6.49,
+    "category": "starter",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1545247181-516773cae754?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Button Mushrooms",
+      "Garlic",
+      "Butter",
+      "Fresh Cream",
+      "Thyme",
+      "Parsley",
+      "Black Pepper",
+      "Sea Salt",
+      "Bread"
+    ],
+    "rating": 4.3,
+    "reviewCount": 98,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "s6",
+    "name": "Fish Fingers",
+    "description": "Tender strips of fresh white fish coated in a seasoned breadcrumb crust and fried until golden and crispy. Served with our signature tartar sauce and a wedge of lemon.",
+    "price": 7.49,
+    "category": "starter",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1544943910-4c1dc44aab44?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1571091655789-405eb7a3a3a8?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "White Fish Fillet",
+      "Breadcrumbs",
+      "Egg",
+      "Lemon Zest",
+      "Paprika",
+      "Garlic Powder",
+      "Parsley",
+      "Black Pepper"
+    ],
+    "rating": 4.2,
+    "reviewCount": 87,
+    "isVeg": false,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "m1",
+    "name": "Butter Chicken",
+    "description": "The legendary Murgh Makhani \u2014 tender tandoor-roasted chicken simmered in a velvety, mildly spiced tomato and butter gravy enriched with cream. A timeless crowd-pleaser.",
+    "price": 14.99,
+    "category": "main",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Chicken",
+      "Tomatoes",
+      "Butter",
+      "Fresh Cream",
+      "Cashew Paste",
+      "Onions",
+      "Ginger",
+      "Garlic",
+      "Fenugreek Leaves",
+      "Cardamom",
+      "Bay Leaf",
+      "Chili Powder"
+    ],
+    "rating": 4.9,
+    "reviewCount": 412,
+    "isVeg": false,
+    "isSpicy": false,
+    "isBestseller": true
+  },
+  {
+    "id": "m2",
+    "name": "Lamb Biryani",
+    "description": "Slow-cooked aromatic basmati rice layered with succulent pieces of marinated lamb, caramelised onions, saffron milk and whole spices, then dum-cooked to infuse every grain with rich flavour.",
+    "price": 16.99,
+    "category": "main",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Basmati Rice",
+      "Lamb",
+      "Saffron",
+      "Caramelised Onions",
+      "Yogurt",
+      "Whole Spices",
+      "Rose Water",
+      "Mint Leaves",
+      "Ghee",
+      "Ginger-Garlic Paste"
+    ],
+    "rating": 4.8,
+    "reviewCount": 287,
+    "isVeg": false,
+    "isSpicy": true,
+    "isBestseller": true
+  },
+  {
+    "id": "m3",
+    "name": "Chicken Biryani",
+    "description": "Fragrant long-grain basmati rice cooked alongside marinated chicken pieces, sealed and slow-cooked in the authentic dum style. Every bite is a burst of spices, herbs and tender chicken.",
+    "price": 14.99,
+    "category": "main",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Basmati Rice",
+      "Chicken",
+      "Onions",
+      "Yogurt",
+      "Saffron",
+      "Mint",
+      "Coriander",
+      "Whole Spices",
+      "Ghee",
+      "Lemon Juice"
+    ],
+    "rating": 4.7,
+    "reviewCount": 326,
+    "isVeg": false,
+    "isSpicy": true,
+    "isBestseller": false
+  },
+  {
+    "id": "m4",
+    "name": "Dal Makhani",
+    "description": "Whole black lentils and kidney beans slow-cooked overnight on a low flame with butter, cream and spices until unbelievably rich and creamy. A cornerstone of North Indian cooking.",
+    "price": 12.99,
+    "category": "main",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Black Lentils (Urad Dal)",
+      "Kidney Beans (Rajma)",
+      "Butter",
+      "Fresh Cream",
+      "Tomatoes",
+      "Onions",
+      "Ginger",
+      "Garlic",
+      "Chili",
+      "Fenugreek"
+    ],
+    "rating": 4.7,
+    "reviewCount": 198,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": true
+  },
+  {
+    "id": "m5",
+    "name": "Palak Paneer",
+    "description": "Soft cubes of fresh cottage cheese nestled in a vibrant, velvety spinach gravy seasoned with ginger, garlic and warming spices. A nutritious and hearty vegetarian classic.",
+    "price": 12.49,
+    "category": "main",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1567188040758-a05ab0b57b12?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Paneer",
+      "Fresh Spinach",
+      "Onion",
+      "Tomato",
+      "Ginger",
+      "Garlic",
+      "Cream",
+      "Cumin",
+      "Garam Masala",
+      "Kasuri Methi"
+    ],
+    "rating": 4.5,
+    "reviewCount": 164,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "m6",
+    "name": "Prawn Masala",
+    "description": "Plump, juicy prawns cooked in a robustly spiced onion-tomato masala with coastal Indian spices and coconut milk. Pairs perfectly with steamed rice or freshly baked naan.",
+    "price": 17.99,
+    "category": "main",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1565557623262-b51477827a1b?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1559847844-5315695dadae?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Tiger Prawns",
+      "Coconut Milk",
+      "Tomatoes",
+      "Onions",
+      "Curry Leaves",
+      "Mustard Seeds",
+      "Red Chili",
+      "Ginger",
+      "Garlic",
+      "Turmeric"
+    ],
+    "rating": 4.6,
+    "reviewCount": 143,
+    "isVeg": false,
+    "isSpicy": true,
+    "isBestseller": false
+  },
+  {
+    "id": "m7",
+    "name": "Garlic Naan",
+    "description": "Soft and pillowy leavened bread baked in a scorching hot tandoor oven, brushed generously with melted butter and topped with fragrant minced garlic and fresh coriander.",
+    "price": 3.49,
+    "category": "main",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Refined Flour",
+      "Yogurt",
+      "Milk",
+      "Yeast",
+      "Sugar",
+      "Butter",
+      "Garlic",
+      "Coriander Leaves",
+      "Salt"
+    ],
+    "rating": 4.6,
+    "reviewCount": 302,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": true
+  },
+  {
+    "id": "m8",
+    "name": "Vegetable Korma",
+    "description": "A medley of garden-fresh vegetables simmered in a mild, fragrant yogurt and nut-based sauce enriched with whole spices. A luxuriously creamy and comforting vegetarian main.",
+    "price": 11.99,
+    "category": "main",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Mixed Vegetables",
+      "Yogurt",
+      "Cashews",
+      "Almonds",
+      "Coconut Cream",
+      "Onion",
+      "Cardamom",
+      "Cloves",
+      "Cinnamon",
+      "Saffron"
+    ],
+    "rating": 4.4,
+    "reviewCount": 112,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "d1",
+    "name": "Gulab Jamun",
+    "description": "Soft, spongy milk-solid dumplings soaked in a warm cardamom and rose water sugar syrup. Served hot \u2014 India's most beloved dessert.",
+    "price": 5.99,
+    "category": "dessert",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1601050690117-94f5f7a5b57d?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Khoya (Milk Solids)",
+      "Refined Flour",
+      "Baking Powder",
+      "Sugar",
+      "Rose Water",
+      "Cardamom",
+      "Saffron",
+      "Ghee for frying"
+    ],
+    "rating": 4.9,
+    "reviewCount": 356,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": true
+  },
+  {
+    "id": "d2",
+    "name": "Kheer",
+    "description": "Traditional Indian rice pudding slow-cooked in full-fat milk with fragrant cardamom, strands of saffron, topped with slivered almonds and pistachios. Served chilled.",
+    "price": 5.49,
+    "category": "dessert",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1601050690117-94f5f7a5b57d?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Basmati Rice",
+      "Full-Fat Milk",
+      "Sugar",
+      "Cardamom",
+      "Saffron",
+      "Almonds",
+      "Pistachios",
+      "Raisins",
+      "Rose Water"
+    ],
+    "rating": 4.6,
+    "reviewCount": 178,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "d3",
+    "name": "Pistachio Kulfi",
+    "description": "Dense, creamy traditional Indian ice cream set on a stick, richly flavoured with pistachios, saffron and cardamom. Denser and more intense than regular ice cream.",
+    "price": 4.99,
+    "category": "dessert",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Full-Fat Milk",
+      "Condensed Milk",
+      "Pistachios",
+      "Saffron",
+      "Cardamom",
+      "Sugar",
+      "Corn Flour",
+      "Rose Water"
+    ],
+    "rating": 4.7,
+    "reviewCount": 203,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": true
+  },
+  {
+    "id": "d4",
+    "name": "Rasgulla",
+    "description": "Light, spongy cottage cheese dumplings poached in a delicate sugar syrup flavoured with rose water until pillowy soft. A refreshing and elegant Bengali dessert.",
+    "price": 5.49,
+    "category": "dessert",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1601050690117-94f5f7a5b57d?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Chenna (Fresh Cottage Cheese)",
+      "Sugar",
+      "Water",
+      "Rose Water",
+      "Cardamom",
+      "Saffron"
+    ],
+    "rating": 4.5,
+    "reviewCount": 134,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "d5",
+    "name": "Mango Panna Cotta",
+    "description": "Silky Italian-style panna cotta infused with Alphonso mango pur\u00e9e, set to a delicate wobble and topped with fresh mango cubes and a coulis drizzle.",
+    "price": 6.49,
+    "category": "dessert",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Heavy Cream",
+      "Alphonso Mango Pur\u00e9e",
+      "Sugar",
+      "Gelatin",
+      "Vanilla",
+      "Fresh Mango",
+      "Mango Coulis",
+      "Mint Leaves"
+    ],
+    "rating": 4.7,
+    "reviewCount": 119,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "dr1",
+    "name": "Mango Lassi",
+    "description": "A thick, chilled and refreshingly sweet yogurt-based smoothie blended with ripe Alphonso mango pulp, a hint of cardamom and a touch of rose water.",
+    "price": 4.49,
+    "category": "drinks",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1571805529673-0f56b922b359?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1561043433-aaf687c4cf04?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Chilled Yogurt",
+      "Alphonso Mango Pulp",
+      "Milk",
+      "Sugar",
+      "Cardamom",
+      "Rose Water",
+      "Ice"
+    ],
+    "rating": 4.9,
+    "reviewCount": 441,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": true
+  },
+  {
+    "id": "dr2",
+    "name": "Masala Chai",
+    "description": "India's beloved spiced milk tea brewed with whole cardamom, cinnamon, cloves, fresh ginger and black tea leaves, then simmered with full-fat milk and sweetened to perfection.",
+    "price": 3.49,
+    "category": "drinks",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1571066811602-716837d681de?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Black Tea",
+      "Full-Fat Milk",
+      "Cardamom",
+      "Cinnamon",
+      "Cloves",
+      "Fresh Ginger",
+      "Black Pepper",
+      "Sugar"
+    ],
+    "rating": 4.8,
+    "reviewCount": 389,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": true
+  },
+  {
+    "id": "dr3",
+    "name": "Fresh Lime Soda",
+    "description": "Freshly squeezed lime juice combined with sparkling soda water, seasoned with a pinch of black salt and cumin powder. Available sweet, salty or sweet-and-salty.",
+    "price": 3.49,
+    "category": "drinks",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560508179-b2c9a3555b60?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1497534446932-c925b458314e?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Fresh Lime Juice",
+      "Sparkling Water",
+      "Black Salt",
+      "Roasted Cumin Powder",
+      "Sugar (optional)",
+      "Mint Leaves",
+      "Ice"
+    ],
+    "rating": 4.5,
+    "reviewCount": 213,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "dr4",
+    "name": "Rose Sharbat",
+    "description": "A chilled and elegant rose-flavoured drink made with premium rose syrup, chilled milk and basil seeds (sabja). Beautifully pink and fragrant.",
+    "price": 3.99,
+    "category": "drinks",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1560508179-b2c9a3555b60?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1527661591475-527312dd65f5?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Rose Syrup",
+      "Chilled Milk",
+      "Basil Seeds (Sabja)",
+      "Sugar",
+      "Ice",
+      "Rose Petals (garnish)"
+    ],
+    "rating": 4.4,
+    "reviewCount": 167,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  },
+  {
+    "id": "dr5",
+    "name": "Sparkling Mineral Water",
+    "description": "Chilled 500 ml bottle of premium sparkling mineral water. The perfect palate cleanser between courses.",
+    "price": 1.99,
+    "category": "drinks",
+    "imageUrls": [
+      "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1497534446932-c925b458314e?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=400&h=300&fit=crop"
+    ],
+    "ingredients": [
+      "Sparkling Mineral Water"
+    ],
+    "rating": 4.0,
+    "reviewCount": 89,
+    "isVeg": true,
+    "isSpicy": false,
+    "isBestseller": false
+  }
+]
