@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -8,24 +7,23 @@ const menuRoutes = require('./routes/menu');
 const categoriesRoutes = require('./routes/categories');
 const restaurantRoutes = require('./routes/restaurant');
 const ordersRoutes = require('./routes/orders');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ─── Security & Middleware ─────────────────────────────────────────────────────
 app.use(helmet());
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : '*',
-  methods: ['GET', 'POST'],
-}));
+app.use(cors());
 app.use(morgan('dev'));
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json({ extended: false }));
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api/dishes', menuRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/restaurant', restaurantRoutes);
 app.use('/api/orders', ordersRoutes);
+app.use('/api/auth', authRoutes);
 
 // ─── Health Check ─────────────────────────────────────────────────────────────
 app.get('/api/health', (_req, res) => {
