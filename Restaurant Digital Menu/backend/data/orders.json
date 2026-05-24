@@ -1,0 +1,24 @@
+[
+  {
+    "orderId": "ORD-1779660959542-c220",
+    "userId": "258798fd-3227-44ba-943e-2a9e42e7e564",
+    "items": [
+      {
+        "dish": {
+          "id": "s2",
+          "name": "Paneer Tikka",
+          "price": 7.99
+        },
+        "quantity": 1,
+        "lineTotal": 7.99
+      }
+    ],
+    "subtotal": 7.99,
+    "tax": 0.64,
+    "total": 8.63,
+    "estimatedWaitMinutes": 34,
+    "placedAt": "2026-05-24T22:15:59.551Z",
+    "tableNumber": 7,
+    "note": "no onions"
+  }
+]

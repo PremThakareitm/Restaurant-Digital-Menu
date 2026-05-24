@@ -3,6 +3,7 @@ import 'package:restaurant_digital_menu/services/auth_service.dart';
 import 'package:restaurant_digital_menu/screens/home_screen.dart';
 import 'package:restaurant_digital_menu/screens/signup_screen.dart';
 import 'package:restaurant_digital_menu/theme/app_theme.dart';
+import '../utils/test_ids.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -73,53 +74,65 @@ class _LoginScreenState extends State<LoginScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         'Login to continue',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      SizedBox(height: 32),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          prefixIcon: Icon(Icons.email),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                      const SizedBox(height: 32),
+                      Semantics(
+                        identifier: TestIds.loginEmailField,
+                        child: TextFormField(
+                          key: const Key(TestIds.loginEmailField),
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            prefixIcon: const Icon(Icons.email),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
+                          validator: (value) =>
+                              value!.isEmpty ? 'Enter your email' : null,
+                          onSaved: (value) => _email = value!,
+                          keyboardType: TextInputType.emailAddress,
                         ),
-                        validator: (value) =>
-                            value!.isEmpty ? 'Enter your email' : null,
-                        onSaved: (value) => _email = value!,
-                        keyboardType: TextInputType.emailAddress,
                       ),
-                      SizedBox(height: 16),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                      const SizedBox(height: 16),
+                      Semantics(
+                        identifier: TestIds.loginPasswordField,
+                        child: TextFormField(
+                          key: const Key(TestIds.loginPasswordField),
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            prefixIcon: const Icon(Icons.lock),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
+                          obscureText: true,
+                          validator: (value) =>
+                              value!.isEmpty ? 'Enter your password' : null,
+                          onSaved: (value) => _password = value!,
                         ),
-                        obscureText: true,
-                        validator: (value) =>
-                            value!.isEmpty ? 'Enter your password' : null,
-                        onSaved: (value) => _password = value!,
                       ),
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
                       _isLoading
-                          ? CircularProgressIndicator()
+                          ? const CircularProgressIndicator()
                           : SizedBox(
                               width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: _login,
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
+                              child: Semantics(
+                                identifier: TestIds.loginButton,
+                                child: ElevatedButton(
+                                  key: const Key(TestIds.loginButton),
+                                  onPressed: _login,
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(vertical: 16),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
                                   ),
+                                  child: const Text('Login'),
                                 ),
-                                child: Text('Login'),
                               ),
                             ),
                       if (_errorMessage.isNotEmpty)
@@ -127,19 +140,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.only(top: 16.0),
                           child: Text(
                             _errorMessage,
-                            style: TextStyle(color: Colors.red, fontSize: 16),
+                            style: const TextStyle(color: Colors.red, fontSize: 16),
                           ),
                         ),
-                      SizedBox(height: 16),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignupScreen()),
-                          );
-                        },
-                        child: Text('Don\'t have an account? Sign up'),
+                      const SizedBox(height: 16),
+                      Semantics(
+                        identifier: TestIds.loginSignupLink,
+                        child: TextButton(
+                          key: const Key(TestIds.loginSignupLink),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SignupScreen()),
+                            );
+                          },
+                          child: const Text('Don\'t have an account? Sign up'),
+                        ),
                       ),
                     ],
                   ),

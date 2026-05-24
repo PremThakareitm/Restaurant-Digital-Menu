@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_digital_menu/services/auth_service.dart';
 import 'package:restaurant_digital_menu/screens/home_screen.dart';
 import 'package:restaurant_digital_menu/theme/app_theme.dart';
+import '../utils/test_ids.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -73,67 +74,83 @@ class _SignupScreenState extends State<SignupScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         'Sign up to get started',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      SizedBox(height: 32),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Name',
-                          prefixIcon: Icon(Icons.person),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                      const SizedBox(height: 32),
+                      Semantics(
+                        identifier: TestIds.signupNameField,
+                        child: TextFormField(
+                          key: const Key(TestIds.signupNameField),
+                          decoration: InputDecoration(
+                            labelText: 'Name',
+                            prefixIcon: const Icon(Icons.person),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
+                          validator: (value) =>
+                              value!.isEmpty ? 'Enter your name' : null,
+                          onSaved: (value) => _name = value!,
                         ),
-                        validator: (value) =>
-                            value!.isEmpty ? 'Enter your name' : null,
-                        onSaved: (value) => _name = value!,
                       ),
-                      SizedBox(height: 16),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          prefixIcon: Icon(Icons.email),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                      const SizedBox(height: 16),
+                      Semantics(
+                        identifier: TestIds.signupEmailField,
+                        child: TextFormField(
+                          key: const Key(TestIds.signupEmailField),
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            prefixIcon: const Icon(Icons.email),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
+                          validator: (value) =>
+                              value!.isEmpty ? 'Enter your email' : null,
+                          onSaved: (value) => _email = value!,
+                          keyboardType: TextInputType.emailAddress,
                         ),
-                        validator: (value) =>
-                            value!.isEmpty ? 'Enter your email' : null,
-                        onSaved: (value) => _email = value!,
-                        keyboardType: TextInputType.emailAddress,
                       ),
-                      SizedBox(height: 16),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                      const SizedBox(height: 16),
+                      Semantics(
+                        identifier: TestIds.signupPasswordField,
+                        child: TextFormField(
+                          key: const Key(TestIds.signupPasswordField),
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            prefixIcon: const Icon(Icons.lock),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
+                          obscureText: true,
+                          validator: (value) => value!.length < 6
+                              ? 'Password must be at least 6 characters'
+                              : null,
+                          onSaved: (value) => _password = value!,
                         ),
-                        obscureText: true,
-                        validator: (value) => value!.length < 6
-                            ? 'Password must be at least 6 characters'
-                            : null,
-                        onSaved: (value) => _password = value!,
                       ),
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
                       _isLoading
-                          ? CircularProgressIndicator()
+                          ? const CircularProgressIndicator()
                           : SizedBox(
                               width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: _signup,
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 16),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
+                              child: Semantics(
+                                identifier: TestIds.signupButton,
+                                child: ElevatedButton(
+                                  key: const Key(TestIds.signupButton),
+                                  onPressed: _signup,
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(vertical: 16),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
                                   ),
+                                  child: const Text('Sign Up'),
                                 ),
-                                child: Text('Sign Up'),
                               ),
                             ),
                       if (_errorMessage.isNotEmpty)
@@ -141,15 +158,19 @@ class _SignupScreenState extends State<SignupScreen> {
                           padding: const EdgeInsets.only(top: 16.0),
                           child: Text(
                             _errorMessage,
-                            style: TextStyle(color: Colors.red, fontSize: 16),
+                            style: const TextStyle(color: Colors.red, fontSize: 16),
                           ),
                         ),
-                      SizedBox(height: 16),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('Already have an account? Login'),
+                      const SizedBox(height: 16),
+                      Semantics(
+                        identifier: TestIds.signupLoginLink,
+                        child: TextButton(
+                          key: const Key(TestIds.signupLoginLink),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Already have an account? Login'),
+                        ),
                       ),
                     ],
                   ),

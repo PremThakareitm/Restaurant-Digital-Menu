@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../services/auth_service.dart';
 import '../theme/app_theme.dart';
 import 'home_screen.dart';
+import 'landing_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -79,10 +81,12 @@ class _SplashScreenState extends State<SplashScreen>
     _textController.forward();
     await Future.delayed(const Duration(milliseconds: 1600));
     if (mounted) {
+      final isLoggedIn = await AuthService().isLoggedIn();
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
           transitionDuration: const Duration(milliseconds: 600),
-          pageBuilder: (_, __, ___) => const HomeScreen(),
+          pageBuilder: (_, __, ___) =>
+              isLoggedIn ? const HomeScreen() : const LandingScreen(),
           transitionsBuilder: (_, animation, __, child) {
             return FadeTransition(
               opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),

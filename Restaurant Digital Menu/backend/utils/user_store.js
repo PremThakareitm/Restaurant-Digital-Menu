@@ -26,7 +26,13 @@ async function writeUsers(users) {
   await fs.writeFile(usersFilePath, JSON.stringify(users, null, 2), 'utf8');
 }
 
+async function findUserById(userId) {
+  const users = await readUsers();
+  return users.find((user) => user.id === userId) || null;
+}
+
 module.exports = {
   readUsers,
   writeUsers,
+  findUserById,
 };

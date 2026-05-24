@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const dishes = require('../data/menu.json');
+const auth = require('../middleware/auth');
+const { readOrders, writeOrders } = require('../utils/order_store');
+const crypto = require('crypto');
 
 /**
  * POST /api/orders
  * Body: { items: [{ dishId: string, quantity: number }] }
  */
-router.post('/', (req, res) => {
+router.post('/', auth, async (req, res) => {
   const { items } = req.body;
 
   // ─── Basic input validation ────────────────────────────────────────────────
@@ -42,20 +45,30 @@ router.post('/', (req, res) => {
 
   const tax = +(subtotal * 0.08).toFixed(2);
   const total = +(subtotal + tax).toFixed(2);
-  const orderId = `ORD-${Date.now()}`;
+  const order = {
+    orderId: `ORD-${Date.now()}-${crypto.randomBytes(2).toString('hex')}`,
+    userId: req.user.id,
+    items: orderLines,
+    subtotal: +subtotal.toFixed(2),
+    tax,
+    total,
+    estimatedWaitMinutes: 25 + Math.floor(Math.random() * 11),
+    placedAt: new Date().toISOString(),
+    tableNumber: req.body.tableNumber ?? null,
+    note: req.body.note?.trim() || null,
+  };
 
-  // In a real system this would be persisted to a database.
-  res.status(201).json({
-    data: {
-      orderId,
-      items: orderLines,
-      subtotal: +subtotal.toFixed(2),
-      tax,
-      total,
-      estimatedWaitMinutes: 25 + Math.floor(Math.random() * 11),
-      placedAt: new Date().toISOString(),
-    },
-  });
+  const orders = await readOrders();
+  orders.unshift(order);
+  await writeOrders(orders);
+
+  res.status(201).json({ data: order });
+});
+
+router.get('/history', auth, async (req, res) => {
+  const orders = await readOrders();
+  const history = orders.filter((order) => order.userId === req.user.id);
+  res.json({ data: history });
 });
 
 module.exports = router;

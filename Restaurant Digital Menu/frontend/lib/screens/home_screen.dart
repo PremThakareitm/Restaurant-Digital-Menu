@@ -7,6 +7,7 @@ import 'menu_screen.dart';
 import 'favorites_screen.dart';
 import 'order_preview_screen.dart';
 import 'restaurant_info_screen.dart';
+import 'account_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     FavoritesScreen(),
     OrderPreviewScreen(),
     RestaurantInfoScreen(),
+    AccountScreen(),
   ];
 
   @override
@@ -107,6 +109,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         selectedIcon: Icon(Icons.store_rounded),
                         label: Text('About'),
                       ),
+                      const NavigationRailDestination(
+                        icon: Icon(Icons.person_outline_rounded),
+                        selectedIcon: Icon(Icons.person_rounded),
+                        label: Text('Account'),
+                      ),
                     ],
                   ),
                 ),
@@ -184,6 +191,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.store_outlined),
                     selectedIcon: Icon(Icons.store_rounded),
                     label: 'About',
+                  ),
+                  const NavigationDestination(
+                    icon: Icon(Icons.person_outline_rounded),
+                    selectedIcon: Icon(Icons.person_rounded),
+                    label: 'Account',
                   ),
                 ],
               ),

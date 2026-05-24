@@ -3,7 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const { readUsers, writeUsers } = require('../utils/user_store');
+const auth = require('../middleware/auth');
+const { readUsers, writeUsers, findUserById } = require('../utils/user_store');
 require('dotenv').config();
 
 // @route   POST api/auth/register
@@ -99,6 +100,25 @@ router.post('/login', async (req, res) => {
         res.json({ token });
       }
     );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route   GET api/auth/me
+// @desc    Get current user profile
+// @access  Private
+router.get('/me', auth, async (req, res) => {
+  try {
+    const user = await findUserById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    const { password, ...profile } = user;
+    res.json({ data: profile });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

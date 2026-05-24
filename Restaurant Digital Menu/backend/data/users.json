@@ -5,5 +5,12 @@
     "email": "test@example.com",
     "password": "$2b$10$aoc/te090m0flwZQCIr.5ugy4pRlpsM07WBkFZCt.hQArVawof8V.",
     "date": "2026-05-24T22:02:12.633Z"
+  },
+  {
+    "id": "43025e01-dc4a-4951-8d29-5e726b193f02",
+    "name": "prem",
+    "email": "premthakare@gmail.com",
+    "password": "$2b$10$J0l0e87w8k2Dm/urtFxHN.vdA6yvKubXva6x/HUk1A/mhwjSChUsi",
+    "date": "2026-05-24T22:06:45.796Z"
   }
 ]

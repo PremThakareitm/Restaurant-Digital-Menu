@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restaurant_digital_menu/services/auth_service.dart';
 import '../state/app_state.dart';
 import '../theme/app_theme.dart';
 import '../utils/currency_formatter.dart';
 import '../utils/constants.dart';
 import '../utils/responsive_helper.dart';
+import '../utils/test_ids.dart';
 import '../widgets/order_item_tile.dart';
 
 class OrderPreviewScreen extends StatelessWidget {
@@ -18,101 +20,108 @@ class OrderPreviewScreen extends StatelessWidget {
     final items = state.orderItems;
     final history = state.orderHistory;
 
-    return Scaffold(
-      backgroundColor: AppTheme.background,
-      appBar: AppBar(
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text('My Order'),
-            if (items.isNotEmpty) ...[
-              const SizedBox(width: 8),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  color: AppTheme.primary.withAlpha(15),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Text(
-                  '${state.totalOrderItems}',
-                  style: GoogleFonts.outfit(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: AppTheme.primary,
+    return Semantics(
+      identifier: TestIds.orderScreen,
+      child: Scaffold(
+        backgroundColor: AppTheme.background,
+        appBar: AppBar(
+          title: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('My Order'),
+              if (items.isNotEmpty) ...[
+                const SizedBox(width: 8),
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: AppTheme.primary.withAlpha(15),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                ),
-              ),
-            ],
-          ],
-        ),
-        actions: [
-          if (items.isNotEmpty)
-            TextButton.icon(
-              onPressed: () => _confirmClear(context),
-              icon: const Icon(Icons.delete_outline_rounded,
-                  color: AppTheme.nonVegRed, size: 18),
-              label: Text(
-                'Clear',
-                style: GoogleFonts.outfit(
-                    color: AppTheme.nonVegRed,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 13),
-              ),
-            ),
-          const SizedBox(width: 4),
-        ],
-      ),
-      body: items.isEmpty && history.isEmpty
-          ? const _EmptyOrder()
-          : ResponsiveBuilder(
-              builder: (context, screenType, screenWidth) {
-                final horizontalPad =
-                    ResponsiveHelper.getHorizontalPadding(screenWidth);
-                final maxContentWidth =
-                    ResponsiveHelper.getMaxContentWidth(screenWidth);
-
-                return Center(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: maxContentWidth),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: ListView(
-                            padding: EdgeInsets.fromLTRB(
-                                horizontalPad, 16, horizontalPad, 16),
-                            children: [
-                              if (items.isNotEmpty) ...[
-                                // ─── Table number ────────────────────
-                                _TableSelector(state: state),
-                                const SizedBox(height: 16),
-                                // ─── Order items ──────────────────────
-                                ...items.map(
-                                  (item) => Padding(
-                                    padding: const EdgeInsets.only(bottom: 12),
-                                    child: OrderItemTile(item: item),
-                                  ),
-                                ),
-                                // ─── Special notes ────────────────────
-                                _SpecialNotesField(state: state),
-                                const SizedBox(height: 16),
-                              ],
-                              if (history.isNotEmpty) ...[
-                                _OrderHistorySection(history: history),
-                                const SizedBox(height: 16),
-                              ],
-                            ],
-                          ),
-                        ),
-                        if (items.isNotEmpty)
-                          _OrderSummary(
-                              state: state, horizontalPad: horizontalPad),
-                      ],
+                  child: Text(
+                    '${state.totalOrderItems}',
+                    style: GoogleFonts.outfit(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: AppTheme.primary,
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              ],
+            ],
+          ),
+          actions: [
+            if (items.isNotEmpty)
+              Semantics(
+                identifier: TestIds.orderClearButton,
+                child: TextButton.icon(
+                  onPressed: () => _confirmClear(context),
+                  icon: const Icon(Icons.delete_outline_rounded,
+                      color: AppTheme.nonVegRed, size: 18),
+                  label: Text(
+                    'Clear',
+                    style: GoogleFonts.outfit(
+                        color: AppTheme.nonVegRed,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13),
+                  ),
+                ),
+              ),
+            const SizedBox(width: 4),
+          ],
+        ),
+        body: items.isEmpty && history.isEmpty
+            ? const _EmptyOrder()
+            : ResponsiveBuilder(
+                builder: (context, screenType, screenWidth) {
+                  final horizontalPad =
+                      ResponsiveHelper.getHorizontalPadding(screenWidth);
+                  final maxContentWidth =
+                      ResponsiveHelper.getMaxContentWidth(screenWidth);
+
+                  return Center(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: maxContentWidth),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: ListView(
+                              padding: EdgeInsets.fromLTRB(
+                                  horizontalPad, 16, horizontalPad, 16),
+                              children: [
+                                if (items.isNotEmpty) ...[
+                                  // ─── Table number ────────────────────
+                                  _TableSelector(state: state),
+                                  const SizedBox(height: 16),
+                                  // ─── Order items ──────────────────────
+                                  ...items.map(
+                                    (item) => Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 12),
+                                      child: OrderItemTile(item: item),
+                                    ),
+                                  ),
+                                  // ─── Special notes ────────────────────
+                                  _SpecialNotesField(state: state),
+                                  const SizedBox(height: 16),
+                                ],
+                                if (history.isNotEmpty) ...[
+                                  _OrderHistorySection(history: history),
+                                  const SizedBox(height: 16),
+                                ],
+                              ],
+                            ),
+                          ),
+                          if (items.isNotEmpty)
+                            _OrderSummary(
+                                state: state, horizontalPad: horizontalPad),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+      ),
     );
   }
 
@@ -183,9 +192,9 @@ class OrderPreviewScreen extends StatelessWidget {
 class _OrderSummary extends StatelessWidget {
   final AppState state;
   final double horizontalPad;
+  final AuthService _authService = AuthService();
 
-  const _OrderSummary(
-      {required this.state, required this.horizontalPad});
+  _OrderSummary({required this.state, required this.horizontalPad});
 
   @override
   Widget build(BuildContext context) {
@@ -259,19 +268,22 @@ class _OrderSummary extends StatelessWidget {
                   ),
                 ],
               ),
-              ElevatedButton.icon(
-                onPressed: () => _placeOrder(context, state),
-                icon: const Icon(Icons.check_circle_outline_rounded,
-                    size: 18),
-                label: const Text('Place Order'),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 22, vertical: 14),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14)),
-                  elevation: 0,
-                  textStyle: GoogleFonts.outfit(
-                      fontSize: 14, fontWeight: FontWeight.w700),
+              Semantics(
+                identifier: TestIds.orderPlaceButton,
+                child: ElevatedButton.icon(
+                  onPressed: () => _placeOrder(context, state),
+                  icon: const Icon(Icons.check_circle_outline_rounded,
+                      size: 18),
+                  label: const Text('Place Order'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 22, vertical: 14),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14)),
+                    elevation: 0,
+                    textStyle: GoogleFonts.outfit(
+                        fontSize: 14, fontWeight: FontWeight.w700),
+                  ),
                 ),
               ),
             ],
@@ -281,7 +293,31 @@ class _OrderSummary extends StatelessWidget {
     );
   }
 
-  void _placeOrder(BuildContext context, AppState state) {
+  Future<void> _placeOrder(BuildContext context, AppState state) async {
+    final orderPayload = state.orderItems
+        .map(
+          (item) => {
+            'dishId': item.dish.id,
+            'quantity': item.quantity,
+          },
+        )
+        .toList();
+
+    final success = await _authService.submitOrder(
+      items: orderPayload,
+      tableNumber: state.tableNumber,
+      note: state.orderNote,
+    );
+
+    if (!context.mounted) return;
+
+    if (!success) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not place order. Please try again.')),
+      );
+      return;
+    }
+
     final placedOrder = state.placeOrder();
     showDialog(
       context: context,
@@ -297,84 +333,93 @@ class _TableSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppTheme.dividerLight),
-        boxShadow: AppTheme.shadowSm,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(7),
-                decoration: BoxDecoration(
-                  color: AppTheme.primary.withAlpha(15),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(Icons.table_restaurant_outlined,
-                    size: 16, color: AppTheme.primary),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                'Select Table',
-                style: GoogleFonts.outfit(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: AppTheme.textPrimary,
-                ),
-              ),
-              if (state.tableNumber != null) ...[
-                const SizedBox(width: 8),
+    return Semantics(
+      identifier: TestIds.orderTableField,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: AppTheme.dividerLight),
+          boxShadow: AppTheme.shadowSm,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.all(7),
                   decoration: BoxDecoration(
-                    color: AppTheme.primary.withAlpha(18),
-                    borderRadius: BorderRadius.circular(8),
+                    color: AppTheme.primary.withAlpha(15),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text(
-                    state.tableNumber == 0
-                        ? '🛵 Takeaway'
-                        : '🪑 Table ${state.tableNumber}',
-                    style: GoogleFonts.outfit(
+                  child: const Icon(Icons.table_restaurant_outlined,
+                      size: 16, color: AppTheme.primary),
+                ),
+                const SizedBox(width: 10),
+                Text(
+                  'Select Table',
+                  style: GoogleFonts.outfit(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: AppTheme.textPrimary,
+                  ),
+                ),
+                if (state.tableNumber != null) ...[
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: AppTheme.primary.withAlpha(18),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      state.tableNumber == 0
+                          ? '🛵 Takeaway'
+                          : '🪑 Table ${state.tableNumber}',
+                      style: GoogleFonts.outfit(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
-                        color: AppTheme.primary),
+                        color: AppTheme.primary,
+                      ),
+                    ),
                   ),
+                ],
+              ],
+            ),
+            const SizedBox(height: 14),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _TableChip(
+                  label: '🛵',
+                  sublabel: 'Takeaway',
+                  value: 0,
+                  selected: state.tableNumber == 0,
+                  onTap: () => state.setTableNumber(0),
                 ),
               ],
-            ],
-          ),
-          const SizedBox(height: 14),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _TableChip(
-                label: '🛵',
-                sublabel: 'Takeaway',
-                value: 0,
-                selected: state.tableNumber == 0,
-                onTap: () => context.read<AppState>().setTableNumber(0),
-              ),
-              ...List.generate(
-                15,
-                (i) => _TableChip(
-                  label: '${i + 1}',
-                  value: i + 1,
-                  selected: state.tableNumber == i + 1,
-                  onTap: () =>
-                      context.read<AppState>().setTableNumber(i + 1),
-                ),
-              ),
-            ],
-          ),
-        ],
+            ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: List.generate(12, (index) {
+                final tableNum = index + 1;
+                final selected = state.tableNumber == tableNum;
+                return _TableChip(
+                  label: '$tableNum',
+                  value: tableNum,
+                  selected: selected,
+                  onTap: () => state.setTableNumber(tableNum),
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }
